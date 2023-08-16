@@ -12,7 +12,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks
     {
         base.OnJoinedRoom();
 
-        p = PhotonNetwork.Instantiate("player", transform.position, transform.rotation);
+        p = PhotonNetwork.Instantiate("Player", transform.position, transform.rotation);
     }
 
     public override void OnLeftRoom()
