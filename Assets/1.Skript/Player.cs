@@ -18,7 +18,24 @@ public class Player : MonoBehaviour
 
     PhotonView pv;
 
-    // Start is called before the first frame update
+    public Animator animatorLeft;
+    public Animator animatorRight;
+
+    void UpdateAnimation(InputDevice Device, Animator animator)
+    {
+        if (Device.TryGetFeatureValue(CommonUsages.trigger, out float triggerValue))
+            animator.SetFloat("Trigger", triggerValue);
+        else
+            animator.SetFloat("Trigger", 0);
+
+        if (Device.TryGetFeatureValue(CommonUsages.grip, out float gripValue))
+            animator.SetFloat("Grip", gripValue);
+        else
+            animator.SetFloat("Grip", 0);
+    }
+
+
+
     void Start()
     {
         pv = GetComponent<PhotonView>();
@@ -51,6 +68,9 @@ public class Player : MonoBehaviour
             SetTransform(pHead, oHead);
             SetTransform(pLeft, oLeft);
             SetTransform(pRight, oRight);
+
+            UpdateAnimation(InputDevices.GetDeviceAtXRNode(XRNode.LeftHand), animatorLeft);
+            UpdateAnimation(InputDevices.GetDeviceAtXRNode(XRNode.RightHand), animatorRight);
         }
     }
 }
